@@ -1,3 +1,17 @@
 {
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "db-local": "^3.1.0",
+    "express": "4.19.2"
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch index.js"
+  },
+  "devDependencies": {
+    "standard": "^17.1.0"
+  },
+  "eslintConfig": {
+    "extends": "standard"
+  }
 }
