@@ -8,12 +8,23 @@ app.get('/', (req, resp)=>{
     resp.send('Hello World')
 })
 
-app.post('/register', (req, resp)=>{
+app.post('/login', async (req, resp)=>{
+    const {username, password} = req.body
+
+    try {
+        const user = await UsrRepository.login({username, password})
+        resp.send({user})
+    } catch (error) {
+        resp.status(401).send(error.message)
+    }
+})
+
+app.post('/register', async (req, resp)=>{
     const {username, password} = req.body
     console.log(req.body)
 
     try {
-        const id = UsrRepository.create({username, password})
+        const id = await UsrRepository.create({username, password})
         resp.send({ id })
     } catch (error) {
         resp.status(400).send(error.message)
