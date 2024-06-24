@@ -3,9 +3,10 @@ import {PORT} from './config.js'
 import { UsrRepository } from './user.repository.js'
 const app = express()
 app.use(express.json())
+app.set('view engine', 'ejs')
 
 app.get('/', (req, resp)=>{
-    resp.send('Hello World')
+    resp.render('example', {name: 'Yovanis'})
 })
 
 app.post('/login', async (req, resp)=>{

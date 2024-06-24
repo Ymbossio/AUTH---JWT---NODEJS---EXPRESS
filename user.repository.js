@@ -2,7 +2,7 @@ import dbLocal from "db-local";
 const {Schema} = new dbLocal({path: './db'})
 import crypto from 'crypto'
 import bcrypt from 'bcrypt'
-import { SALT_ROUND } from "./config";
+import { SALT_ROUND } from "./config.js";
 
 const User = Schema('User', {
     _id: {type: String, rquired: true},
