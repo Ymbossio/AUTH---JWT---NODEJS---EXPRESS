@@ -6,7 +6,7 @@ app.use(express.json())
 app.set('view engine', 'ejs')
 
 app.get('/', (req, resp)=>{
-    resp.render('example', {name: 'Yovanis'})
+    resp.render('index')
 })
 
 app.post('/login', async (req, resp)=>{
