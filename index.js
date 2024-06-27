@@ -1,40 +1,43 @@
 import express from 'express'
 import {PORT} from './config.js'
-import { UsrRepository } from './user.repository.js'
+import { UserRepository } from './user.repository.js'
 const app = express()
 app.use(express.json())
 app.set('view engine', 'ejs')
 
-app.get('/', (req, resp)=>{
-    resp.render('index')
+app.get('/', (req, res)=>{
+    res.render('index')
 })
 
-app.post('/login', async (req, resp)=>{
+app.post('/login', async (req, res)=>{
     const {username, password} = req.body
 
     try {
-        const user = await UsrRepository.login({username, password})
-        resp.send({user})
+        const user = await UserRepository.login({username, password})
+        res.send({user})
     } catch (error) {
-        resp.status(401).send(error.message)
+        res.status(401).send(error.message)
     }
 })
 
-app.post('/register', async (req, resp)=>{
+app.post('/register', async (req, res)=>{
     const {username, password} = req.body
     console.log(req.body)
 
     try {
-        const id = await UsrRepository.create({username, password})
-        resp.send({ id })
+        const id = await UserRepository.create({username, password})
+        res.send({ id })
     } catch (error) {
-        resp.status(400).send(error.message)
+        res.status(401).send(error.message)
     }
 })
 
 
-app.post('/logout', (req, resp)=>{})
-app.post('/protected', (req, resp)=>{})
+app.post('/logout', (req, res)=>{})
+
+app.post('/protected', (req, res)=>{
+    res.render('protected')
+})
 
 
 

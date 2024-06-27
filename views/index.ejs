@@ -78,16 +78,15 @@
             <div class="form-container">
                 <h2>Hola <%= username %> !</h2>
                 <p>Estás en el panel de administración</p>
-                <button id="close-sesion"> Cerrar Sesión</button>
+                <button id="close-session">Cerrar Sesión</button>
             </div>
-        <% }%>
+        <% } %>
     
-
         <% if(typeof username === 'undefined') { %>
             <div class="form-container">
                 <form id="login-form">
                     <h2>Ingreso</h2>
-                    <label for="login-username"> Usuario</label>
+                    <label for="login-username">Usuario</label>
                     <input type="text" id="login-username" name="username" required>
 
                     <label for="login-password">Contraseña</label>
@@ -108,14 +107,13 @@
                     <input type="password" id="register-password" name="password" required>
 
                     <label for="register-confirm-password">Confirma Contraseña</label>
-                    <input type="password" id="register-confirm-password" name="confirm-password" required>
+                    <input type="password" id="register-confirm-password" name="register-confirm-password" required>
 
                     <button type="submit">Registrar</button>
                     <span>&nbsp;</span>
-
                 </form>
             </div>
-        <%}%>
+        <% } %>
     </div>
 
     <script>
@@ -128,7 +126,7 @@
 
         const logoutButton = $('#close-session')
 
-        loginForm?.addEventListerner('submit', e =>{
+        loginForm?.addEventListener('submit', e => {
             e.preventDefault()
             const username = $('#login-username').value
             const password = $('#login-password').value
@@ -136,76 +134,71 @@
             fetch('/login', {
                 method: 'POST',
                 headers: {
-                    'Content-type': 'application/json'
+                    'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ username, password})
+                body: JSON.stringify({ username, password })
             })
-
-            .then(resp =>{
-                if(resp.ok){
-                    loginSpan.innerText = 'Sesión iniciado... Entrando...'
+            .then(resp => {
+                if (resp.ok) {
+                    loginSpan.innerText = 'Sesión iniciada... Entrando...'
                     loginSpan.style.color = 'green'
-                    setTimeout(()=>{
+                    setTimeout(() => {
                         window.location.href = '/protected'
                     }, 2000)
-                }else{
+                } else {
                     loginSpan.innerText = 'Error al iniciar sesión'
                     loginSpan.style.color = 'red'
                 }
             })
         })
 
-            registerForm?.addEventListerner('submit', e =>{
-                e.preventDefault()
-                const username = $('#register-username').value
-                const password = $('#register-password').value
-                const confirmPassword = $('#register-confirm-username').value
+        registerForm?.addEventListener('submit', e => {
+            e.preventDefault()
+            const username = $('#register-username').value
+            const password = $('#register-password').value
+            const confirmPassword = $('#register-confirm-password').value
 
-                if(password !== confirmPassword){
-                    alert('La contraseña no coincide')
-                    return
-                }
+            if (password !== confirmPassword) {
+                alert('La contraseña no coincide')
+                return
+            }
 
-                fetch('/register', {
+            fetch('/register', {
                 method: 'POST',
                 headers: {
-                    'Content-type': 'application/json'
+                    'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ username, password})
+                body: JSON.stringify({ username, password })
             })
-
-            .then(resp =>{
+            .then(resp => {
                 console.log(resp)
-                if(resp.ok){
-                    registerSpan.innerText = 'Sesión registrado... Entrando...'
+                if (resp.ok) {
+                    registerSpan.innerText = 'Usuario registrado... Entrando...'
                     registerSpan.style.color = 'green'
-                    setTimeout(()=>{
+                    setTimeout(() => {
                         window.location.href = '/protected'
                     }, 2000)
-                }else{
+                } else {
                     registerSpan.innerText = 'Error al registrar al usuario'
                     registerSpan.style.color = 'red'
                 }
             })
         })
 
-        logoutButton?.addEventListerner('click', e =>{
+        logoutButton?.addEventListener('click', e => {
             e.preventDefault()
             fetch('/logout', {
                 method: 'POST',
-                headers:{
-                    'Content-type': 'apllication/json'
+                headers: {
+                    'Content-Type': 'application/json'
                 }
             })
-
             .then(resp => {
-                console.log(resp);
+                console.log(resp)
                 window.location.href = '/'
             })
         })
-
     </script>
-        
-    
 </body>
+
 </html>

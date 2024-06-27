@@ -5,12 +5,12 @@ import bcrypt from 'bcrypt'
 import { SALT_ROUND } from "./config.js";
 
 const User = Schema('User', {
-    _id: {type: String, rquired: true},
-    username: {type: String, rquired: true},
-    password: {type: String, rquired: true}
+    _id: {type: String, required: true},
+    username: {type: String, required: true},
+    password: {type: String, required: true}
 })
 
-export class UsrRepository{
+export class UserRepository{
     static async create({username, password}){
 
         //validación
@@ -56,6 +56,6 @@ class Validation{
 
     static password(password){
         if(typeof password != 'string') throw new Error('la contraseña debe ser una cadena')
-        if(username.length <3) throw new Error ('La contraseña debe contener 6 caracteres')
+        if(password.length > 4) throw new Error ('La contraseña debe contener 6 caracteres')
     }
 }
