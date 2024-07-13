@@ -59,7 +59,10 @@ app.post('/register', async (req, res)=>{
 })
 
 
-app.post('/logout', (req, res)=>{})
+app.post('/logout', (req, res)=>{
+    res.clearCookie('access_token')
+    .json({ message: 'Sessión finalizada'})
+})
 
 app.get('/protected', (req, res)=>{
 
