@@ -56,6 +56,6 @@ class Validation{
 
     static password(password){
         if(typeof password != 'string') throw new Error('la contraseña debe ser una cadena')
-        if(password.length > 4) throw new Error ('La contraseña debe contener 6 caracteres')
+        if(password.length < 8) throw new Error ('La contraseña debe contener 6 caracteres')
     }
 }
